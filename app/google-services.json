@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "898454045806",
+    "project_id": "commechienetch-app",
+    "storage_bucket": "commechienetch-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:898454045806:android:51e080eb00122bed3bd27f",
+        "android_client_info": {
+          "package_name": "com.example.ccchapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "898454045806-b00fivo0b9vp4jndjpotst2vhibuh9ge.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVmbGEynCWPR1BYHTznBKoO6ktV-sg0sM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "898454045806-b00fivo0b9vp4jndjpotst2vhibuh9ge.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

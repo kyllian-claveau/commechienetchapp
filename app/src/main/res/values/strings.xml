@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">CC&amp;Ch\'App</string>
+    <string name="main_title">CC&amp;Ch\'App</string>
+    <string name="second_title">Vidéo-Conférence</string>
+    <string name="login_button">Connexion</string>
+    <string name="register_button">Inscription</string>
+    <string name="login_title">Se connecter</string>
+    <string name="login_sub_title"><font color="#00C9B8"><b>Connectez-vous</b></font> si vous avez déjà un compte.</string>
+    <string name="register_sub_title"><font color="#00C9B8"><b>Inscrivez-vous</b></font> pour commenncer à utiliser l\'application</string>
+    <string name="login_email">Votre email ou identifiant*</string>
+    <string name="login_password">Votre mot de passe*</string>
+    <string name="login_forgot_pw">Mot de passe oublié?</string>
+    <string name="login_havent_account">Je n\'ai pas encore de compte.<font color="#00C9B8"><b>S\'inscrire</b></font></string>
+    <string name="register_have_account">
+        J\'ai déjà un compte
+    <font color="#00C9B8"><b>Se connecter</b></font>
+    </string>
+    <string name="register_title">Créer un compte</string>
+    <string name="register_fullname">Votre nom complet</string>
+    <string name="register_email">Votre email</string>
+    <string name="register_username">Votre identifiant</string>
+    <string name="register_password">Votre mot de passe</string>
+    <string name="register_confirm_password">Confirmer votre mot de passe</string>
+    <string name="home_title">Bienvenue !</string>
+    <string name="home_sub_title">Vous êtes bien connecté</string>
+    <string name="home_logout">Se déconnecter</string>
+    <string name="home_dernieres_visio">Dernières visio</string>
+    <string name="home_join_meeting">Rejoindre un meeting</string>
+    <string name="home_chat">Chat</string>
+    <string name="down_menu_old_conv">Ancienne(s) conversation(s)</string>
+    <string name="down_menu_new_conv">Conversation</string>
+    <string name="down_menu_chat">Chat</string>
+    <string name="home_jitsi_join_field">Entrer le nom du salon</string>
+    <string name="home_join_conference">Rejoindre un salon</string>
+    <string name="home_join_salon">Rejoindre</string>
+    <string name="til_message_title">Envoyez un nouveau message</string>
+    <string name="new_message_field">Ecrire..</string>
+    <string name="send_new_message">Envoyer</string>
+</resources>
