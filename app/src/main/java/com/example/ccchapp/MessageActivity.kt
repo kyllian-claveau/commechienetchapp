@@ -7,11 +7,21 @@ import android.widget.Toast
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
 import org.json.JSONArray
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import org.json.JSONObject
 
 class MessageActivity : AppCompatActivity() {
+    private lateinit var messageRecyclerView: RecyclerView
+    private lateinit var messageAdapter: MessageAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_message)
+
+        messageRecyclerView = findViewById(R.id.messageRecyclerView)
+        messageRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        fetchMessages()
     }
 
     private fun fetchMessages() {
@@ -37,6 +47,14 @@ class MessageActivity : AppCompatActivity() {
                             val content = message.getString("messages")
 
                             // Vous pouvez ajouter le contenu des messages à une liste ou les afficher à l'écran.
+                            val messages = mutableListOf<JSONObject>()
+                            for (i in 0 until jsonArray.length()) {
+                                val message = jsonArray.getJSONObject(i)
+                                messages.add(message)
+                            }
+
+                            messageAdapter = MessageAdapter(messages)
+                            messageRecyclerView.adapter = messageAdapter
                         }
                     }
                 }
