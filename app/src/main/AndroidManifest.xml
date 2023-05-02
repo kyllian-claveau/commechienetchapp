@@ -16,13 +16,7 @@
             android:name=".ConversationActivity"
             android:exported="false" />
         <activity
-            android:name=".ConversationsActivity"
-            android:exported="false" />
-        <activity
             android:name=".MessageActivity"
-            android:exported="false" />
-        <activity
-            android:name=".JitsiMeetHistoryActivity"
             android:exported="false" />
         <activity
             android:name=".HistoryActivity"

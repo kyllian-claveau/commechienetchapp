@@ -1,6 +1,7 @@
 package com.example.ccchapp
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -10,18 +11,25 @@ import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ccchapp.databinding.ActivityHomeBinding
+import com.example.ccchapp.databinding.ActivityMessageBinding
 import com.github.kittinunf.fuel.core.extensions.jsonBody
 import com.github.kittinunf.fuel.httpPost
+import com.google.firebase.auth.FirebaseAuth
 import org.json.JSONObject
 
 class MessageActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMessageBinding
+    private lateinit var auth: FirebaseAuth
     private lateinit var messageRecyclerView: RecyclerView
     private lateinit var messageAdapter: MessageAdapter
     private lateinit var inputText: EditText
     private lateinit var submitButton: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_message)
+        binding = ActivityMessageBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         messageRecyclerView = findViewById(R.id.messageRecyclerView)
         messageRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -61,6 +69,23 @@ class MessageActivity : AppCompatActivity() {
         }
 
         fetchMessages()
+        // Click
+        binding.downmenuLayout.homeLogout.setOnClickListener {
+            auth.signOut()
+            Intent(this, LoginActivity::class.java).also {
+                it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(it)
+                Toast.makeText(this, "Déconnexion Réussie !", Toast.LENGTH_SHORT).show()
+            }
+        }
+        // Click
+        binding.downmenuLayout.homeChat.setOnClickListener {
+            startActivity(Intent(this,  ConversationActivity::class.java))
+        }
+        // Click
+        binding.downmenuLayout.button1.setOnClickListener {
+            startActivity(Intent(this, ConversationActivity::class.java))
+        }
     }
 
     private fun fetchMessages() {
@@ -94,4 +119,5 @@ class MessageActivity : AppCompatActivity() {
                 }
         }
     }
+
 }

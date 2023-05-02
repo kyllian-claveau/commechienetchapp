@@ -1,26 +1,31 @@
 package com.example.ccchapp
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ccchapp.databinding.ActivityConversationBinding
+import com.example.ccchapp.databinding.ActivityHomeBinding
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
-import org.json.JSONArray
+import com.google.firebase.auth.FirebaseAuth
 import org.json.JSONObject
 
 class ConversationActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityConversationBinding
+    private lateinit var auth: FirebaseAuth
     private lateinit var recyclerView: RecyclerView
     private lateinit var conversationAdapter: ConversationAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_conversation)
+        binding = ActivityConversationBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         recyclerView = findViewById(R.id.conversationRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -57,6 +62,23 @@ class ConversationActivity : AppCompatActivity() {
                 }
         } else {
             Log.e("DEBUG", "Token is null.")
+        }
+        // Click
+        binding.downmenuLayout.homeLogout.setOnClickListener {
+            auth.signOut()
+            Intent(this, LoginActivity::class.java).also {
+                it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(it)
+                Toast.makeText(this, "Déconnexion Réussie !", Toast.LENGTH_SHORT).show()
+            }
+        }
+        // Click
+        binding.downmenuLayout.homeChat.setOnClickListener {
+            startActivity(Intent(this,  ConversationActivity::class.java))
+        }
+        // Click
+        binding.downmenuLayout.button1.setOnClickListener {
+            startActivity(Intent(this, ConversationActivity::class.java))
         }
     }
 }
