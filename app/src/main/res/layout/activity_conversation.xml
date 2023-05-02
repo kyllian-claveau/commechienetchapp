@@ -14,37 +14,12 @@
         android:layout_height="wrap_content" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/messageRecyclerView"
+        android:id="@+id/conversationRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_alignTop="@+id/menu_layout"
         android:layout_alignBottom="@+id/downmenu_layout"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="@string/new_message_field"
-            android:inputType="text"
-            android:maxLines="1"
-            android:minHeight="48dp"
-            android:singleLine="true" />
-
-        <Button
-            android:id="@+id/sendButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/send_new_message" />
-
-    </LinearLayout>
-
 
     <include
         android:id="@+id/downmenu_layout"

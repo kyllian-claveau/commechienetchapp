@@ -13,7 +13,7 @@ import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
 import org.jitsi.meet.sdk.JitsiMeetUserInfo
 import java.net.URL
 
-class HomeActivity : AppCompatActivity(){
+class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var auth: FirebaseAuth
@@ -38,7 +38,7 @@ class HomeActivity : AppCompatActivity(){
         auth = FirebaseAuth.getInstance()
 
         // Click
-        binding.downmenuLayout.homeLogout.setOnClickListener{
+        binding.downmenuLayout.homeLogout.setOnClickListener {
             auth.signOut()
             Intent(this, LoginActivity::class.java).also {
                 it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -47,11 +47,12 @@ class HomeActivity : AppCompatActivity(){
             }
         }
         // Click
-        binding.downmenuLayout.homeChat.setOnClickListener{
-            Intent(this, MessageActivity::class.java).also {
-                it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(it)
-            }
+        binding.downmenuLayout.homeChat.setOnClickListener {
+            startActivity(Intent(this,  MessageActivity::class.java))
+        }
+        // Click
+        binding.downmenuLayout.button1.setOnClickListener {
+            startActivity(Intent(this, ConversationActivity::class.java))
         }
     }
 }

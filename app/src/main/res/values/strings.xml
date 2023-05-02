@@ -33,7 +33,8 @@
     <string name="home_jitsi_join_field">Entrer le nom du salon</string>
     <string name="home_join_conference">Rejoindre un salon</string>
     <string name="home_join_salon">Rejoindre</string>
-    <string name="til_message_title">Envoyez un nouveau message</string>
+    <string name="til_message_title">Saisir un message..</string>
     <string name="new_message_field">Ecrire..</string>
     <string name="send_new_message">Envoyer</string>
+    <string name="no_vendor_or_user">Aucun utilisateur ou vendeur disponible.</string>
 </resources>
