@@ -48,11 +48,11 @@ class HomeActivity : AppCompatActivity() {
         }
         // Click
         binding.downmenuLayout.homeChat.setOnClickListener {
-            startActivity(Intent(this,  MessageActivity::class.java))
+            startActivity(Intent(this,  ConversationActivity::class.java))
         }
         // Click
         binding.downmenuLayout.button1.setOnClickListener {
-            startActivity(Intent(this, ConversationActivity::class.java))
+            startActivity(Intent(this, LastConversationActivity::class.java))
         }
     }
 }
