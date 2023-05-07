@@ -8,16 +8,16 @@
     android:background="@color/grey_light">
 
     <ImageButton
-        android:id="@+id/button1"
+        android:id="@+id/setting"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="@android:color/transparent"
-        android:src="@drawable/ic_doc_folder"
-        android:contentDescription="@string/down_menu_old_conv" />
+        android:src="@drawable/ic_setting"
+        android:contentDescription="@string/parametres" />
 
     <ImageButton
-        android:id="@+id/button2"
+        android:id="@+id/home"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

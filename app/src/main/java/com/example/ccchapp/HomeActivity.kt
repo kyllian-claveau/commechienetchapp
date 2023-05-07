@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import com.example.ccchapp.databinding.ActivityHomeBinding
@@ -22,6 +23,11 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val refreshButton = findViewById<ImageButton>(R.id.refresh_button)
+        refreshButton.setOnClickListener {
+            recreate()
+        }
 
         findViewById<AppCompatButton>(R.id.btn_join).setOnClickListener {
             val conferenceName = findViewById<EditText>(R.id.conferenceName).text.toString()
@@ -47,12 +53,16 @@ class HomeActivity : AppCompatActivity() {
             }
         }
         // Click
-        binding.downmenuLayout.homeChat.setOnClickListener {
-            startActivity(Intent(this,  ConversationActivity::class.java))
+        binding.downmenuLayout.setting.setOnClickListener {
+            startActivity(Intent(this, UserInformationActivity::class.java))
         }
         // Click
-        binding.downmenuLayout.button1.setOnClickListener {
-            startActivity(Intent(this, LastConversationActivity::class.java))
+        binding.downmenuLayout.home.setOnClickListener {
+            startActivity(Intent(this,  HomeActivity::class.java))
+        }
+        // Click
+        binding.downmenuLayout.homeChat.setOnClickListener {
+            startActivity(Intent(this,  ConversationActivity::class.java))
         }
     }
 }

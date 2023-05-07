@@ -14,14 +14,14 @@
         android:src="@drawable/logo"/>
 
     <ImageButton
-        android:id="@+id/message_button"
+        android:id="@+id/refresh_button"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:src="@drawable/ic_notification_alert"
+        android:src="@drawable/ic_refresh"
         android:background="@android:color/transparent"/>
 
 </RelativeLayout>

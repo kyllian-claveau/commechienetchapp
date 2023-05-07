@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import org.json.JSONObject
 
 class LastConversationAdapter(private val conversations: List<JSONObject>, private val userType: String) :
-    RecyclerView.Adapter<LastConversationAdapter.LastConversationViewHolder>() {
+    RecyclerView.Adapter<LastConversationAdapter.LastConversationViewHolder>()
+{
 
     class LastConversationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.last_conversation_list)

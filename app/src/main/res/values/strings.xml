@@ -37,4 +37,5 @@
     <string name="new_message_field">Ecrire..</string>
     <string name="send_new_message">Envoyer</string>
     <string name="no_vendor_or_user">Aucun utilisateur ou vendeur disponible.</string>
+    <string name="parametres">Paramètres</string>
 </resources>

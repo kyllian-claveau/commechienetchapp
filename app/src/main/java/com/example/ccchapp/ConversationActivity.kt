@@ -5,11 +5,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ccchapp.databinding.ActivityConversationBinding
-import com.example.ccchapp.databinding.ActivityHomeBinding
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
 import com.google.firebase.auth.FirebaseAuth
@@ -26,6 +26,11 @@ class ConversationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityConversationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val refreshButton = findViewById<ImageButton>(R.id.refresh_button)
+        refreshButton.setOnClickListener {
+            recreate()
+        }
 
         recyclerView = findViewById(R.id.conversationRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -73,12 +78,16 @@ class ConversationActivity : AppCompatActivity() {
             }
         }
         // Click
-        binding.downmenuLayout.homeChat.setOnClickListener {
-            startActivity(Intent(this,  ConversationActivity::class.java))
+        binding.downmenuLayout.setting.setOnClickListener {
+            startActivity(Intent(this, UserInformationActivity::class.java))
         }
         // Click
-        binding.downmenuLayout.button1.setOnClickListener {
-            startActivity(Intent(this, ConversationActivity::class.java))
+        binding.downmenuLayout.home.setOnClickListener {
+            startActivity(Intent(this,  HomeActivity::class.java))
+        }
+        // Click
+        binding.downmenuLayout.homeChat.setOnClickListener {
+            startActivity(Intent(this,  ConversationActivity::class.java))
         }
     }
 }

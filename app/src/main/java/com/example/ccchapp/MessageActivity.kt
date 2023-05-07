@@ -4,22 +4,26 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.ccchapp.databinding.ActivityHomeBinding
 import com.example.ccchapp.databinding.ActivityMessageBinding
 import com.github.kittinunf.fuel.core.extensions.jsonBody
 import com.github.kittinunf.fuel.httpPost
 import com.google.firebase.auth.FirebaseAuth
 import org.json.JSONObject
 
+@Suppress("DEPRECATION")
 class MessageActivity : AppCompatActivity() {
 
+    private val REFRESH_DELAY_MS = 10000 // 10 secondes
+    private val handler = Handler()
     private lateinit var binding: ActivityMessageBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var messageRecyclerView: RecyclerView
@@ -30,6 +34,10 @@ class MessageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMessageBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val refreshButton = findViewById<ImageButton>(R.id.refresh_button)
+        refreshButton.setOnClickListener {
+            recreate()
+        }
 
         messageRecyclerView = findViewById(R.id.messageRecyclerView)
         messageRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -67,7 +75,7 @@ class MessageActivity : AppCompatActivity() {
                     }
             }
         }
-
+        refreshMessages()
         fetchMessages()
         // Click
         binding.downmenuLayout.homeLogout.setOnClickListener {
@@ -79,15 +87,22 @@ class MessageActivity : AppCompatActivity() {
             }
         }
         // Click
+        binding.downmenuLayout.setting.setOnClickListener {
+            startActivity(Intent(this, UserInformationActivity::class.java))
+        }
+        // Click
+        binding.downmenuLayout.home.setOnClickListener {
+            startActivity(Intent(this,  HomeActivity::class.java))
+        }
+        // Click
         binding.downmenuLayout.homeChat.setOnClickListener {
             startActivity(Intent(this,  ConversationActivity::class.java))
         }
-        // Click
-        binding.downmenuLayout.button1.setOnClickListener {
-            startActivity(Intent(this, ConversationActivity::class.java))
-        }
     }
-
+    private fun refreshMessages() {
+        fetchMessages()
+        handler.postDelayed({ refreshMessages() }, REFRESH_DELAY_MS.toLong())
+    }
     private fun fetchMessages() {
         val sharedPreferences = getSharedPreferences("authentication", Context.MODE_PRIVATE)
         val token = sharedPreferences.getString("token", "")
