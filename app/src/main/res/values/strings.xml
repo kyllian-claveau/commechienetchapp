@@ -38,4 +38,6 @@
     <string name="send_new_message">Envoyer</string>
     <string name="no_vendor_or_user">Aucun utilisateur ou vendeur disponible.</string>
     <string name="parametres">Paramètres</string>
+    <string name="website">Inscription à partir du site internet de Comme-Chien-Et-Chat.eu</string>
+    <string name="contact">Contact</string>
 </resources>

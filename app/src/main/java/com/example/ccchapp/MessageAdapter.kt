@@ -1,15 +1,18 @@
 package com.example.ccchapp
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import okhttp3.internal.notifyAll
 import org.json.JSONObject
 
 class MessageAdapter(private val messages: ArrayList<JSONObject>) :
     RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
+
+    private var userRole: String? = null
 
     class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val messageContentTextView: TextView = itemView.findViewById(R.id.chat_list)
@@ -24,8 +27,14 @@ class MessageAdapter(private val messages: ArrayList<JSONObject>) :
         val message = messages[position]
         holder.messageContentTextView.text = message.getString("message")
 
-        if (message.getString("sender_type")!="VENDOR" /* replace by user role */) {
-            holder.messageContentTextView.textAlignment = View.TEXT_ALIGNMENT_TEXT_END
+        if (message.getBoolean("sent_by_current_user")) {
+            holder.messageContentTextView.setBackgroundResource(R.drawable.my_message_background)
+        } else {
+            holder.messageContentTextView.setBackgroundResource(R.drawable.your_message_background)
+            holder.messageContentTextView.layoutParams = (holder.messageContentTextView.layoutParams as RelativeLayout.LayoutParams).apply {
+                removeRule(RelativeLayout.ALIGN_PARENT_END)
+                addRule(RelativeLayout.ALIGN_PARENT_START)
+            }
         }
     }
 
@@ -33,5 +42,9 @@ class MessageAdapter(private val messages: ArrayList<JSONObject>) :
 
     fun addMessage(message: JSONObject) {
         messages.add(message)
+    }
+
+    fun setUserRole(role: String?) {
+        userRole = role
     }
 }

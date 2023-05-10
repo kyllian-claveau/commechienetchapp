@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.ccchapp.databinding.ActivityModifyUserBinding
 import com.example.ccchapp.databinding.ActivityUserInformationBinding
+import com.github.kittinunf.fuel.httpGet
+import com.github.kittinunf.result.Result
 import com.google.firebase.auth.FirebaseAuth
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
@@ -41,21 +43,48 @@ class ModifyUserActivity : AppCompatActivity() {
         nameEditText = findViewById(R.id.nameEditText)
         emailEditText = findViewById(R.id.emailEditText)
 
-        // Get user information from intent
-        val userName = intent.getStringExtra("userName")
-        val userEmail = intent.getStringExtra("userEmail")
+        // Get user information from SharedPreferences
+        val sharedPreferences = getSharedPreferences("authentication", Context.MODE_PRIVATE)
+        val token = sharedPreferences.getString("token", "")
+        val url = "http://comme-chien-et-chat.eu/mobile/show/user-information"
 
-        // Set user information to the EditTexts
-        nameEditText.setText(userName)
-        emailEditText.setText(userEmail)
+        if (token != null) {
+            url.httpGet()
+                .header("Content-Type", "application/json")
+                .header("Authorization", token)
+                .response { _, response, result ->
+                    when (result) {
+                        is Result.Failure -> {
+                            Log.e("DEBUG", "HTTP Error: ${result.error.message}")
+                            Toast.makeText(this, result.error.message, Toast.LENGTH_SHORT).show()
+                        }
+
+                        is Result.Success -> {
+                            val json = response.data.toString(Charsets.UTF_8)
+                            Log.d("DEBUG", "JSON Response: $json")
+
+                            val userInformation = JSONObject(json).getJSONObject("userOrVendorInformation")
+                            nameEditText.setText(userInformation.getString("name"))
+                            emailEditText.setText(userInformation.getString("email"))
+                        }
+                    }
+                }
+        } else {
+            Log.e("DEBUG", "Token is null.")
+        }
 
         val saveButton = findViewById<Button>(R.id.saveButton)
         saveButton.setOnClickListener {
             name = nameEditText.text.toString()
             email = emailEditText.text.toString()
 
+            // Save user information to SharedPreferences
+            val editor = sharedPreferences.edit()
+            editor.putString("name", name)
+            editor.putString("email", email)
+            editor.apply()
+
             // Send user information to the server using OkHttp
-            val sharedPreferences = getSharedPreferences("authentication", Context.MODE_PRIVATE)
             val token = sharedPreferences.getString("token", "")
 
             if (token != null) {
@@ -98,26 +127,7 @@ class ModifyUserActivity : AppCompatActivity() {
                 Log.e("DEBUG", "Token is null.")
             }
         }
-        // Click
-        binding.downmenuLayout.homeLogout.setOnClickListener {
-            auth.signOut()
-            Intent(this, LoginActivity::class.java).also {
-                it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(it)
-                Toast.makeText(this, "Déconnexion Réussie !", Toast.LENGTH_SHORT).show()
-            }
-        }
-        // Click
-        binding.downmenuLayout.setting.setOnClickListener {
-            startActivity(Intent(this, UserInformationActivity::class.java))
-        }
-        // Click
-        binding.downmenuLayout.home.setOnClickListener {
-            startActivity(Intent(this,  HomeActivity::class.java))
-        }
-        // Click
-        binding.downmenuLayout.homeChat.setOnClickListener {
-            startActivity(Intent(this,  ConversationActivity::class.java))
-        }
+
+        // ...
     }
 }

@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".MessageAdapter" >
+    >
+        <ImageView
+            android:id="@+id/conversation_user_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:maxWidth="40dp"
+            android:minWidth="30dp"
+            android:maxHeight="40dp"
+            android:minHeight="30dp"
+            />
 
     <TextView
         android:id="@+id/conversation_list"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        android:scrollbars="none"/>
+        android:padding="6dp"
+        android:layout_marginTop="5dp"
+        android:textSize="16sp"
+        android:maxWidth="240dp"
+        android:minWidth="30dp"
+        android:maxHeight="50dp"
+        android:minHeight="30dp"/>
+
 </LinearLayout>

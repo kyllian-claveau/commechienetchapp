@@ -76,9 +76,6 @@ class LoginActivity : AppCompatActivity() {
             val password = binding.etPassword.text.toString().trim()
             loginUser(email, password)
         }
-        binding.loginHaventAccount.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity::class.java))
-        }
     }
 
     private fun showTextMinimalAlert(isNotValid: Boolean, text: String) {

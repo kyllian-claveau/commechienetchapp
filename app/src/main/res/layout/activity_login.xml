@@ -93,18 +93,18 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:text="@string/login_button"
-        app:layout_constraintBottom_toTopOf="@id/login_havent_account"
+        app:layout_constraintBottom_toTopOf="@id/website"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="TextSizeCheck" />
 
     <TextView
-        android:id="@+id/login_havent_account"
+        android:id="@+id/website"
         style="@style/SubTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
-        android:text="@string/login_havent_account"
+        android:text="@string/website"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

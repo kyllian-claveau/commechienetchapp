@@ -22,9 +22,6 @@ class MainActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener{
             startActivity(Intent(this, LoginActivity::class.java))
         }
-        binding.btnRegister.setOnClickListener{
-            startActivity(Intent(this, RegisterActivity::class.java))
-        }
     }
 
     override fun onStart() {

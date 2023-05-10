@@ -5,10 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.Toast
+import android.widget.*
 import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.result.Result
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,11 +19,13 @@ import org.json.JSONObject
 @Suppress("DEPRECATION")
 class MessageActivity : AppCompatActivity() {
 
-    private val REFRESH_DELAY_MS = 10000 // 10 secondes
+    private lateinit var contactName: String
+    private val REFRESH_DELAY_MS = 3000 // 1 seconde
     private val handler = Handler()
     private lateinit var binding: ActivityMessageBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var messageRecyclerView: RecyclerView
+    private lateinit var contactNameTextView: TextView
     private lateinit var messageAdapter: MessageAdapter
     private lateinit var inputText: EditText
     private lateinit var submitButton: Button
@@ -34,13 +33,16 @@ class MessageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMessageBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         val refreshButton = findViewById<ImageButton>(R.id.refresh_button)
         refreshButton.setOnClickListener {
             recreate()
         }
-
+        contactNameTextView = findViewById(R.id.contact_name)
         messageRecyclerView = findViewById(R.id.messageRecyclerView)
         messageRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        contactNameTextView = findViewById(R.id.contact_name)
 
         inputText = findViewById(R.id.editText)
         submitButton = findViewById(R.id.sendButton)
@@ -49,7 +51,10 @@ class MessageActivity : AppCompatActivity() {
             val sharedPreferences = getSharedPreferences("authentication", Context.MODE_PRIVATE)
             val token = sharedPreferences.getString("token", "")
 
-            val id = intent.getIntExtra("id", -1) // -1 est la valeur par défaut si le paramètre n'est pas trouvé
+            val id = intent.getIntExtra(
+                "id",
+                -1
+            ) // -1 est la valeur par défaut si le paramètre n'est pas trouvé
             val url = "http://comme-chien-et-chat.eu/mobile/messages/create/$id"
             val createMessage = JSONObject()
             createMessage.put("message", inputText.text)
@@ -77,6 +82,9 @@ class MessageActivity : AppCompatActivity() {
         }
         refreshMessages()
         fetchMessages()
+
+        // Auth
+        auth = FirebaseAuth.getInstance()
         // Click
         binding.downmenuLayout.homeLogout.setOnClickListener {
             auth.signOut()
@@ -92,22 +100,27 @@ class MessageActivity : AppCompatActivity() {
         }
         // Click
         binding.downmenuLayout.home.setOnClickListener {
-            startActivity(Intent(this,  HomeActivity::class.java))
+            startActivity(Intent(this, HomeActivity::class.java))
         }
         // Click
         binding.downmenuLayout.homeChat.setOnClickListener {
-            startActivity(Intent(this,  ConversationActivity::class.java))
+            startActivity(Intent(this, ConversationActivity::class.java))
         }
     }
+
     private fun refreshMessages() {
         fetchMessages()
         handler.postDelayed({ refreshMessages() }, REFRESH_DELAY_MS.toLong())
     }
+
     private fun fetchMessages() {
         val sharedPreferences = getSharedPreferences("authentication", Context.MODE_PRIVATE)
         val token = sharedPreferences.getString("token", "")
 
-        val id = intent.getIntExtra("id", -1) // -1 est la valeur par défaut si le paramètre n'est pas trouvé
+        val id = intent.getIntExtra(
+            "id",
+            -1
+        ) // -1 est la valeur par défaut si le paramètre n'est pas trouvé
         val url = "http://comme-chien-et-chat.eu/mobile/messages/list/$id"
         if (token != null) {
             url.httpGet()
@@ -121,18 +134,24 @@ class MessageActivity : AppCompatActivity() {
 
                         is Result.Success -> {
                             val json = response.data.toString(Charsets.UTF_8)
-                            val messages = JSONObject(json).getJSONArray("messages")
+                            val jsonObject = JSONObject(json)
+                            contactName = jsonObject.getString("contactName")
+                            val messages = jsonObject.getJSONArray("messages")
                             val messageListJsonObject = ArrayList<JSONObject>()
                             for (i in 0 until messages.length()) {
                                 messageListJsonObject.add(messages.getJSONObject(i))
                             }
                             messageAdapter = MessageAdapter(messageListJsonObject)
                             messageRecyclerView.adapter = messageAdapter
-                            messageRecyclerView.scrollToPosition(messages.length()-1)
+                            messageRecyclerView.scrollToPosition(messages.length() - 1)
+
+                            // Affichez le nom du contact dans la vue
+                            contactNameTextView.text = contactName
                         }
                     }
                 }
         }
     }
+
 
 }
